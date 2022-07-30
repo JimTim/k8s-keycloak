@@ -1,0 +1,5 @@
+varReference:
+- kind: Deployment
+  path: spec
+- kind: StatefulSet
+  path: spec

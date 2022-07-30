@@ -1,0 +1,45 @@
+#
+# This Kustomization puts all under
+# resources specified files together.
+#
+#
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ./ingress.yaml
+- ./statefulset.yaml
+- ./service.yaml
+- ./service-headless.yaml
+- ./secret/keycloak-secret.yaml
+
+images:
+- name: keycloak
+  newName: docker.io/bitnami/keycloak
+  newTag: "18.0.1-debian-11-r0"
+
+commonLabels:
+  app.kubernetes.io/component: app
+
+
+vars:
+- name: HOSTNAME
+  objref:
+    name: keycloak
+    group: networking.k8s.io
+    apiVersion: v1
+    kind: Ingress
+  fieldref:
+    fieldpath: spec.rules.0.host
+- name: NAMESPACE
+  objref:
+    name: keycloak
+    group: networking.k8s.io
+    apiVersion: v1
+    kind: Ingress
+  fieldref:
+    fieldpath: metadata.namespace
+
+## references for using variables
+configurations:
+- varreferences.yaml

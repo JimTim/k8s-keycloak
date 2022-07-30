@@ -1,0 +1,17 @@
+#
+# This Kustomization puts all under
+# resources specified files together.
+#
+#
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ./keycloak
+- ./database
+
+commonLabels:
+  app.kubernetes.io/name: keycloak
+  app.kubernetes.io/service: auth
+
+namespace: keycloak
