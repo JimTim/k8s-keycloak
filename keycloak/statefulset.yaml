@@ -37,16 +37,15 @@ spec:
         securityContext:
           runAsNonRoot: true
           runAsUser: 1001
+        envFrom:
+          - configMapRef:
+              name: config
         env:
         - name: KUBERNETES_NAMESPACE
           valueFrom:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        - name: BITNAMI_DEBUG
-          value: "false"
-        - name: KEYCLOAK_CREATE_ADMIN_USER
-          value: "true"
         - name: KEYCLOAK_ADMIN_USER
           valueFrom:
             secretKeyRef:
@@ -72,16 +71,6 @@ spec:
             secretKeyRef:
               name: keycloak
               key: management-password
-        - name: KEYCLOAK_PROXY
-          value: "reencrypt"
-        - name: KEYCLOAK_HTTP_PORT
-          value: "8080"
-        - name: KEYCLOAK_ENABLE_STATISTICS
-          value: "false"
-        - name: KEYCLOAK_DATABASE_HOST
-          value: postgres
-        - name: KEYCLOAK_DATABASE_PORT
-          value: "5432"
         - name: KEYCLOAK_DATABASE_NAME
           valueFrom:
             secretKeyRef:
@@ -97,20 +86,12 @@ spec:
             secretKeyRef:
               key: password
               name: postgres
-        - name: KEYCLOAK_CACHE_TYPE
-          value: "ispn"
-        - name: KEYCLOAK_CACHE_STACK
-          value: "kubernetes"
         - name: JAVA_OPTS_APPEND
           value: "-Djgroups.dns.query=keycloak-headless.$(NAMESPACE)"
         - name: KEYCLOAK_HOSTNAME
           value: "$(HOSTNAME)"
-        - name: KEYCLOAK_HOSTNAME_STRICT
-          value: "true"
         - name: KC_HOSTNAME
           value: "$(HOSTNAME)"
-        - name: KC_HOSTNAME_STRICT
-          value: "true"
         ports:
           - name: http
             containerPort: 8080

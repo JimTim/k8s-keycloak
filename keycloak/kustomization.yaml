@@ -21,6 +21,11 @@ images:
 commonLabels:
   app.kubernetes.io/component: app
 
+configMapGenerator:
+ - name: config
+   envs:
+    - config/envs.txt
+
 
 vars:
 - name: HOSTNAME
