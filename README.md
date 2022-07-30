@@ -1,4 +1,4 @@
-# k8s-ghost
+# Keycloak (Kustomize)
 
 The deployment files are created with the help of [Kustomize](https://kustomize.io/). This allows image versions, secrets or config maps to be exchanged quickly. In addition, there is a small form of templating.
 
