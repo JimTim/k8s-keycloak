@@ -1,0 +1,21 @@
+#
+# This Kustomization puts all under
+# resources specified files together.
+#
+#
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ./pvc.yaml
+- ./service.yaml
+- ./statefulset.yaml
+- ./secret/postgres-secret.yaml
+
+images:
+- name: postgres
+  newName: postgres
+  newTag: "14-alpine"
+
+commonLabels:
+  app.kubernetes.io/component: database
