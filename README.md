@@ -31,14 +31,14 @@ Some patches for the [k3s](https://k3s.io/) installation
   path: /spec/tls
   value: 
     - hosts: 
-        - ghost.example.com
+        - keycloak.example.com
 
 ## cert-manager
 - op: add
   path: /spec/tls
   value: 
     - hosts: 
-        - ghost.example.com
+        - keycloak.example.com
       secretName: 'nerdware-de-tls' 
 - op: add
   path: "/metadata/annotations/cert-manager.io~1cluster-issuer"
